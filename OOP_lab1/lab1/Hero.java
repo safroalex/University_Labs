@@ -1,18 +1,17 @@
-package lab1;
+import common.Point;
+import strateg.MoveStrategy;
+import strateg.heStands;
 
-import lab1.common.Point;
-import lab1.strategies.MoveStrategy;
-import lab1.strategies.Stay;
 
 public class Hero {
     private Point pos;
     private Point dest;
     private MoveStrategy moveStrategy;
 
-    public Hero(Point pos) {
+    public Hero(Point pos){
         this.pos = pos;
         this.dest = pos;
-        this.moveStrategy = new Stay();
+        this.moveStrategy = new heStands();
     }
 
     public void setPos(Point pos) {
@@ -27,8 +26,8 @@ public class Hero {
         this.dest = destination;
     }
 
-    public void setMoveStrategy(MoveStrategy moveStrategy) {
-        this.moveStrategy = moveStrategy;
+    public void setMoveStrategy(MoveStrategy strategy) {
+        this.moveStrategy = strategy;
     }
 
     public void move() {

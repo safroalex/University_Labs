@@ -2,6 +2,6 @@ package strateg;
 
 public class RideAHorse extends howHeMove{
     public RideAHorse() {
-        super(3);
+        super(2.0);
     }
 }

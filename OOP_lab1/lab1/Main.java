@@ -1,7 +1,5 @@
-package lab1;
-
-import lab1.common.Point;
-import lab1.strategies.*;
+import common.Point;
+import strateg.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,45 +8,39 @@ import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
-        HashMap<String, MoveStrategy> moveStrategyMap = new HashMap<>();
-        moveStrategyMap.put("stay", new Stay());
-        moveStrategyMap.put("fly", new Fly());
-        moveStrategyMap.put("ride", new RideAHorse());
-        moveStrategyMap.put("walk", new Walk());
-        moveStrategyMap.put("teleport", new Teleport());
+        HashMap<String, MoveStrategy> choosingInStream = new HashMap<>();
+        choosingInStream.put("fly", new Fly());
+        choosingInStream.put("ride", new RideAHorse());
+        choosingInStream.put("stay", new heStands());
 
-        Hero hero = new Hero(new Point(0, 0));
-        boolean exitGameLoop = false;
+        System.out.println("Hello, Write point of destination in format \"x.x x.x\" ");
+        Hero hero = new Hero(new Point(0, 0)); // default position
+
+        boolean exit = false;                        // flag for exit game
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String[] args_ = {};
-        while (!exitGameLoop) {
+        String[] list;
+        while (!exit) {
             hero.move();
-            System.out.printf("Hero position is (%f, %f)%n", hero.getPos().x, hero.getPos().y);
+            System.out.printf("Now your hero in %f %f %n", hero.getPos().x, hero.getPos().y);
+
             try {
-                args_ = reader.readLine().split(" ");
-            } catch (IOException e) {
-                args_ = new String[]{""};
-            }
-            if (args_.length == 0) {
-                args_ = new String[]{"pass"};
-            }
-            try {
-                switch (args_[0]) {
-                    case "exit": {
-                        exitGameLoop = true;
-                        break;
-                    }
-                    case "dest": {
-                        hero.setDest(new Point(Float.parseFloat(args_[1]), Float.parseFloat(args_[2])));
-                        break;
-                    }
-                    case "strategy": {
-                        hero.setMoveStrategy(moveStrategyMap.get(args_[1]));
-                        break;
-                    }
+                list = reader.readLine().split(" "); /* dividing the array into
+                                                            elements separated by a space */
                 }
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                System.out.println("invalid args for command");
+            catch (IOException e) {
+                list = new String[]{""};   // filling in the null element of the array
+            }
+
+            try {
+                switch (list[0]) {
+                    case "exit" -> exit = true;
+                    case "dest" -> hero.setDest(new Point(Float.parseFloat(list[1]), Float.parseFloat(list[2])));
+                    case "strategy" -> hero.setMoveStrategy(choosingInStream.get(list[1])); /* selecting a class to pass
+                                                                                             an argument to the parent constructor */
+                }
+            }
+            catch(NumberFormatException | IndexOutOfBoundsException e){
+                System.out.println("you are invalid");
             }
         }
     }

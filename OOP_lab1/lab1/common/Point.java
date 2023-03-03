@@ -1,11 +1,11 @@
-package lab1.common;
+package common;
 
 public class Point {
-    public double x;
+    public  double x;
     public double y;
 
     public Point(double x, double y) {
-        this.x = x;
+        this.x =x;
         this.y = y;
     }
 }
