@@ -1,2 +1,2 @@
-# University_Labs
+# UniversityLabs
 
