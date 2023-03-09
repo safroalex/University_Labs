@@ -20,7 +20,7 @@ public class Main {
             if (method.isAnnotationPresent(annotation.class)) {
                 for (int i = 0; i < method.getAnnotation(annotation.class).value(); i++) {
                     method.setAccessible(true);
-                    method.invoke(object);
+                    method.invoke(notobject);
                 }
             }
         }
